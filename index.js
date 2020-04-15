@@ -1,3 +1,5 @@
+// ** Counting Sheep **
+
 function countSheep(number) {
   if (number === 0) {
     return "All sheep jumped over the fence.";
@@ -8,6 +10,9 @@ function countSheep(number) {
 }
 
 // console.log(countSheep(5))
+
+
+// ** Power Calculator **
 
 function powerCalculator(base, exponent) {
   if (exponent < 0) {
@@ -39,20 +44,21 @@ function triangleNumber(number) {
 
 // console.log(triangleNumber(6));
 
-function stringSplitter(string, separator) {
+function stringSplitter(string, separator, currentString = '') {
   let result = [];
   // TODO: Not working, prints whole string in array instead of sub strings arrayed together
   if (string.length === 0) {
-    return [];
+    return [currentString];
   }
   if (string[0] === separator) {
-    return [[] + stringSplitter(string.slice(1), separator)];
+    return [currentString, ...stringSplitter(string.slice(1), separator)];
   }
-  result.push(string[0] + stringSplitter(string.slice(1), separator));
-  return result;
+  currentString = currentString + string[0];
+
+  return stringSplitter(string.slice(1), separator, currentString)
 }
 
-console.log(stringSplitter('02/20/2020', '/'));
+// console.log(stringSplitter('02/20/2020', '/'));
 
 function fibonacciGenerator(number) {
   if (number < 2) {
@@ -120,14 +126,8 @@ function anagram(word) {
 
 // console.log(anagram('east'));
 
-// function binaryRepresentation(number) {
-//   for (let i = 1; i > 0; i = i / 2) {
-//     if (number === i) {
-//       console.log("1");
-//     } else {
-//       console.log("0");
-//     }
-//   }
-// }
+function binaryRepresentation(number) {
+
+}
 
 // console.log(binaryRepresentation(3));
