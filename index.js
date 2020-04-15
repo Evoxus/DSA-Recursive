@@ -92,7 +92,7 @@ function factorial(number) {
 // console.log(factorial(5));
 
 
-// ** Find ALL ways out of the maze **
+// ** FIND THE WAY/FIND ALL THE WAYS OUT OF THE MAZE **
 
 let mySmallMaze = [
   [" ", " ", " "],
@@ -139,9 +139,44 @@ function mazeSolver(maze, row, column) {
   }
   
 }
-console.log(mazeSolver(maze, 0, 0))
 
+// console.log(mazeSolver(maze, 0, 0))
 
+// All solutions (NOT WORKING)
+/* Tried rearranging directions to get a different answer at least; moving either
+ * "U" or "L" before either "D" or "R" breaks the algorithm (max call stack exceeds).
+*/
+function allMazeSolver(maze, row, column) {
+  if (maze[row][column] === 'e') {
+    return ;
+  }
+  if (row < maze[0].length - 1 && maze[row + 1][column] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column;
+    const newRow = row + 1;
+    return 'D' + mazeSolver(maze, newRow, newColumn)
+  }
+  if (row > 0 && maze[row - 1][column] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column;
+    const newRow = row - 1;
+    return 'U' + mazeSolver(maze, newRow, newColumn)
+  }
+  if (column < maze[0].length - 1 && maze[row][column + 1] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column + 1;
+    const newRow = row;
+    return 'R' + mazeSolver(maze, newRow, newColumn)
+  }
+  if (column > 0 && maze[row][column - 1] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column - 1;
+    const newRow = row;
+    return 'L' + mazeSolver(maze, newRow, newColumn)
+  }
+}
+
+// console.log(allMazeSolver(maze, 0, 0))
 
 // ** Anagrams **
 
@@ -220,5 +255,5 @@ function binaryRepresentation(number) {
   return (number).toString(2)
 }
 
-// console.log(binaryRepresentation(0));
+// console.log(binaryRepresentation(25));
 
