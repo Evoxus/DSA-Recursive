@@ -26,6 +26,9 @@ function powerCalculator(base, exponent) {
 
 // console.log(powerCalculator(10, 5));
 
+
+// ** Reverse String **
+
 function reverseString(string) {
   if (string.length === 0) {
     return "";
@@ -34,6 +37,9 @@ function reverseString(string) {
 }
 
 // console.log(reverseString('another test'));
+
+
+// ** nth Triangular Number **
 
 function triangleNumber(number) {
   if (number === 1) {
@@ -44,9 +50,11 @@ function triangleNumber(number) {
 
 // console.log(triangleNumber(6));
 
+
+// ** String Splitter **
+
 function stringSplitter(string, separator, currentString = '') {
   let result = [];
-  // TODO: Not working, prints whole string in array instead of sub strings arrayed together
   if (string.length === 0) {
     return [currentString];
   }
@@ -60,6 +68,9 @@ function stringSplitter(string, separator, currentString = '') {
 
 // console.log(stringSplitter('02/20/2020', '/'));
 
+
+// ** Fibonacci **
+
 function fibonacciGenerator(number) {
   if (number < 2) {
     return number;
@@ -69,6 +80,9 @@ function fibonacciGenerator(number) {
 
 // console.log(fibonacciGenerator(7));
 
+
+// ** Factorial **
+
 function factorial(number) {
   if (number === 1) {
     return number;
@@ -77,6 +91,9 @@ function factorial(number) {
 }
 
 // console.log(factorial(5));
+
+
+// ** Find ALL ways out of the maze **
 
 let mySmallMaze = [
   [" ", " ", " "],
@@ -92,16 +109,33 @@ let maze = [
   [" ", " ", " ", " ", " ", " ", "e"],
 ];
 
-function mazeSolver(maze) {
-  function move(column, row) {
-    if (maze[column][row] === "e") {
-      return `Solved at ${column} ${row}`;
-    } else if (maze[column][row] === " ") {
-    }
+
+function mazeSolver(maze, row, column) {
+  //check all borders
+  if (maze.length <= row || maze.length <= column || column < 0 || row < 0) {
+    return
+  }
+  // console.log(row, column)
+  if (maze[row][column] === "e") {
+    // console.log("exit found")
+    return
+  }
+  if (maze[row][column] === "*") {
+    return
   }
 
-  return;
+  maze[row][column] = '*'
+  mazeSolver(maze, row + 1, column) //down
+  mazeSolver(maze, row, column + 1) //right
+  mazeSolver(maze, row - 1, column) //up
+  mazeSolver(maze, row, column - 1) //left
+  maze[row][column] = ' '
 }
+mazeSolver(mySmallMaze, 0, 0)
+
+
+
+// ** Anagrams **
 
 function anagram(word) {
   if (word.length < 2) {
@@ -123,11 +157,6 @@ function anagram(word) {
 
   return result;
 }
-
 // console.log(anagram('east'));
 
-function binaryRepresentation(number) {
 
-}
-
-// console.log(binaryRepresentation(3));
