@@ -108,29 +108,38 @@ let maze = [
   [" ", " ", " ", " ", " ", " ", "e"],
 ];
 
-
+// One way maze solution
 function mazeSolver(maze, row, column) {
-  //check all borders
-  if (maze.length <= row || maze.length <= column || column < 0 || row < 0) {
-    return
+  if (maze[row][column] === 'e') {
+    return '';
   }
-  // console.log(row, column)
-  if (maze[row][column] === "e") {
-    // console.log("exit found")
-    return
+  if (column < maze[0].length - 1 && maze[row][column + 1] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column + 1;
+    const newRow = row;
+    return 'R' + mazeSolver(maze, newRow, newColumn)
   }
-  if (maze[row][column] === "*") {
-    return
+  if (row < maze[0].length - 1 && maze[row + 1][column] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column;
+    const newRow = row + 1;
+    return 'D' + mazeSolver(maze, newRow, newColumn)
   }
-
-  maze[row][column] = '*'
-  mazeSolver(maze, row + 1, column) //down
-  mazeSolver(maze, row, column + 1) //right
-  mazeSolver(maze, row - 1, column) //up
-  mazeSolver(maze, row, column - 1) //left
-  maze[row][column] = ' '
+  if (column > 0 && maze[row][column - 1] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column - 1;
+    const newRow = row;
+    return 'L' + mazeSolver(maze, newRow, newColumn)
+  }
+  if (row > 0 && maze[row - 1][column] != ('*')) {
+    maze[row][column] = 'x';
+    const newColumn = column;
+    const newRow = row - 1;
+    return 'U' + mazeSolver(maze, newRow, newColumn)
+  }
+  
 }
-mazeSolver(mySmallMaze, 0, 0)
+console.log(mazeSolver(maze, 0, 0))
 
 
 
