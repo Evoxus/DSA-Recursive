@@ -54,7 +54,6 @@ function triangleNumber(number) {
 // ** String Splitter **
 
 function stringSplitter(string, separator, currentString = '') {
-  let result = [];
   if (string.length === 0) {
     return [currentString];
   }
@@ -159,4 +158,58 @@ function anagram(word) {
 }
 // console.log(anagram('east'));
 
+
+// ** Organization Chart **
+
+function organizational(obj, size = '') {
+  if (!obj) {
+    return
+  }
+  for (key in obj) {
+    const value = obj[key]
+    console.log(size + key)
+    organizational(value, size + '  ')
+  }
+}
+
+data = {
+  Zuckerberg: {
+    Schroepfer: {
+      Bosworth: {
+        Steve: null, Kyle: null, Andra: null
+      },
+      Zhao: { Richie: null, Sofia: null, Jen: null }
+    },
+    Schrage: {
+      VanDyck: {
+        Sabrina: null, Michelle: null, Josh: null
+      },
+      Swain: { Blanch: null, Tom: null, Joe: null }
+    },
+    Sandberg: {
+      Goler: {
+        Eddie: null, Julie: null, Annie: null
+      },
+      Hernandez: {
+        Rowi: null, Inga: null, Morgan: null
+      },
+      Moissinac: {
+        Amy: null, Chuck: null, Vinnie: null
+      },
+      Kelley: {
+        Eric: null, Ana: null, Wes: null
+      }
+    }
+  }
+}
+// organizational(data)
+
+
+// ** Binary Representation **
+
+function binaryRepresentation(number) {
+  return (number).toString(2)
+}
+
+// console.log(binaryRepresentation(0));
 
