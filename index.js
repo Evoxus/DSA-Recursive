@@ -45,8 +45,6 @@ function triangleNumber(number) {
 // console.log(triangleNumber(6));
 
 function stringSplitter(string, separator, currentString = '') {
-  let result = [];
-  // TODO: Not working, prints whole string in array instead of sub strings arrayed together
   if (string.length === 0) {
     return [currentString];
   }
