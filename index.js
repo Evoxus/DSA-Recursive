@@ -102,23 +102,35 @@ let maze = [
 ];
 
 // One way maze solution
-function mazeSolver(maze, row, column, count=0) {
-  count++
+function mazeSolver(maze, row, column, count = 0) {
+  count++;
   if (count === 20) {
-    return 'lost'
+    return "lost";
   }
   if (maze[row][column] === "e") {
     return "";
   }
-  if (column < maze[0].length - 1 && maze[row][column + 1] != "*" && maze[row][column + 1] != 'x') {
+  if (
+    column < maze[0].length - 1 &&
+    maze[row][column + 1] != "*" &&
+    maze[row][column + 1] != "x"
+  ) {
     maze[row][column] = "x";
     return "R" + mazeSolver(maze, row, column + 1, count);
   }
-  if (row < maze.length - 1 && maze[row + 1][column] != "*" && maze[row + 1][column] != 'x') {
+  if (
+    row < maze.length - 1 &&
+    maze[row + 1][column] != "*" &&
+    maze[row + 1][column] != "x"
+  ) {
     maze[row][column] = "x";
     return "D" + mazeSolver(maze, row + 1, column, count);
   }
-  if (column > 0 && maze[row][column - 1] != "*" && maze[row][column - 1] != "x") {
+  if (
+    column > 0 &&
+    maze[row][column - 1] != "*" &&
+    maze[row][column - 1] != "x"
+  ) {
     maze[row][column] = "x";
     return "L" + mazeSolver(maze, row, column - 1, count);
   }
@@ -136,23 +148,35 @@ console.log(mazeSolver(maze, 0, 0));
  * Fixed the above issue by checking for the marker x, but now need to find out how to coerce it into
  * looking for different paths when they are available.
  */
-function allMazeSolver(maze, row, column, count=0) {
-  count++
+function allMazeSolver(maze, row, column, count = 0) {
+  count++;
   if (count === 20) {
-    return 'lost'
+    return "lost";
   }
   if (maze[row][column] === "e") {
     return "";
   }
-  if (column < maze[0].length - 1 && maze[row][column + 1] != "*" && maze[row][column + 1] != 'x') {
+  if (
+    column < maze[0].length - 1 &&
+    maze[row][column + 1] != "*" &&
+    maze[row][column + 1] != "x"
+  ) {
     maze[row][column] = "x";
     return "R" + mazeSolver(maze, row, column + 1, count);
   }
-  if (row < maze.length - 1 && maze[row + 1][column] != "*" && maze[row + 1][column] != 'x') {
+  if (
+    row < maze.length - 1 &&
+    maze[row + 1][column] != "*" &&
+    maze[row + 1][column] != "x"
+  ) {
     maze[row][column] = "x";
     return "D" + mazeSolver(maze, row + 1, column, count);
   }
-  if (column > 0 && maze[row][column - 1] != "*" && maze[row][column - 1] != "x") {
+  if (
+    column > 0 &&
+    maze[row][column - 1] != "*" &&
+    maze[row][column - 1] != "x"
+  ) {
     maze[row][column] = "x";
     return "L" + mazeSolver(maze, row, column - 1, count);
   }
