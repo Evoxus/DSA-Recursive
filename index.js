@@ -11,7 +11,6 @@ function countSheep(number) {
 
 // console.log(countSheep(5))
 
-
 // ** Power Calculator **
 
 function powerCalculator(base, exponent) {
@@ -26,7 +25,6 @@ function powerCalculator(base, exponent) {
 
 // console.log(powerCalculator(10, 5));
 
-
 // ** Reverse String **
 
 function reverseString(string) {
@@ -37,7 +35,6 @@ function reverseString(string) {
 }
 
 // console.log(reverseString('another test'));
-
 
 // ** nth Triangular Number **
 
@@ -50,10 +47,9 @@ function triangleNumber(number) {
 
 // console.log(triangleNumber(6));
 
-
 // ** String Splitter **
 
-function stringSplitter(string, separator, currentString = '') {
+function stringSplitter(string, separator, currentString = "") {
   if (string.length === 0) {
     return [currentString];
   }
@@ -62,11 +58,10 @@ function stringSplitter(string, separator, currentString = '') {
   }
   currentString = currentString + string[0];
 
-  return stringSplitter(string.slice(1), separator, currentString)
+  return stringSplitter(string.slice(1), separator, currentString);
 }
 
 // console.log(stringSplitter('02/20/2020', '/'));
-
 
 // ** Fibonacci **
 
@@ -79,7 +74,6 @@ function fibonacciGenerator(number) {
 
 // console.log(fibonacciGenerator(7));
 
-
 // ** Factorial **
 
 function factorial(number) {
@@ -90,7 +84,6 @@ function factorial(number) {
 }
 
 // console.log(factorial(5));
-
 
 // ** FIND THE WAY/FIND ALL THE WAYS OUT OF THE MAZE **
 
@@ -109,70 +102,63 @@ let maze = [
 ];
 
 // One way maze solution
-function mazeSolver(maze, row, column) {
-  if (maze[row][column] === 'e') {
-    return '';
+function mazeSolver(maze, row, column, count=0) {
+  count++
+  if (count === 20) {
+    return 'lost'
   }
-  if (column < maze[0].length - 1 && maze[row][column + 1] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column + 1;
-    const newRow = row;
-    return 'R' + mazeSolver(maze, newRow, newColumn)
+  if (maze[row][column] === "e") {
+    return "";
   }
-  if (row < maze[0].length - 1 && maze[row + 1][column] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column;
-    const newRow = row + 1;
-    return 'D' + mazeSolver(maze, newRow, newColumn)
+  if (column < maze[0].length - 1 && maze[row][column + 1] != "*" && maze[row][column + 1] != 'x') {
+    maze[row][column] = "x";
+    return "R" + mazeSolver(maze, row, column + 1, count);
   }
-  if (column > 0 && maze[row][column - 1] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column - 1;
-    const newRow = row;
-    return 'L' + mazeSolver(maze, newRow, newColumn)
+  if (row < maze.length - 1 && maze[row + 1][column] != "*" && maze[row + 1][column] != 'x') {
+    maze[row][column] = "x";
+    return "D" + mazeSolver(maze, row + 1, column, count);
   }
-  if (row > 0 && maze[row - 1][column] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column;
-    const newRow = row - 1;
-    return 'U' + mazeSolver(maze, newRow, newColumn)
+  if (column > 0 && maze[row][column - 1] != "*" && maze[row][column - 1] != "x") {
+    maze[row][column] = "x";
+    return "L" + mazeSolver(maze, row, column - 1, count);
   }
-  
+  if (row > 0 && maze[row - 1][column] != "*" && maze[row - 1][column] != "x") {
+    maze[row][column] = "x";
+    return "U" + mazeSolver(maze, row - 1, column, count);
+  }
 }
 
-// console.log(mazeSolver(maze, 0, 0))
+console.log(mazeSolver(maze, 0, 0));
 
 // All solutions (NOT WORKING)
 /* Tried rearranging directions to get a different answer at least; moving either
  * "U" or "L" before either "D" or "R" breaks the algorithm (max call stack exceeds).
-*/
-function allMazeSolver(maze, row, column) {
-  if (maze[row][column] === 'e') {
-    return ;
+ * Fixed the above issue by checking for the marker x, but now need to find out how to coerce it into
+ * looking for different paths when they are available.
+ */
+function allMazeSolver(maze, row, column, count=0) {
+  count++
+  if (count === 20) {
+    return 'lost'
   }
-  if (row < maze[0].length - 1 && maze[row + 1][column] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column;
-    const newRow = row + 1;
-    return 'D' + mazeSolver(maze, newRow, newColumn)
+  if (maze[row][column] === "e") {
+    return "";
   }
-  if (row > 0 && maze[row - 1][column] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column;
-    const newRow = row - 1;
-    return 'U' + mazeSolver(maze, newRow, newColumn)
+  if (column < maze[0].length - 1 && maze[row][column + 1] != "*" && maze[row][column + 1] != 'x') {
+    maze[row][column] = "x";
+    return "R" + mazeSolver(maze, row, column + 1, count);
   }
-  if (column < maze[0].length - 1 && maze[row][column + 1] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column + 1;
-    const newRow = row;
-    return 'R' + mazeSolver(maze, newRow, newColumn)
+  if (row < maze.length - 1 && maze[row + 1][column] != "*" && maze[row + 1][column] != 'x') {
+    maze[row][column] = "x";
+    return "D" + mazeSolver(maze, row + 1, column, count);
   }
-  if (column > 0 && maze[row][column - 1] != ('*')) {
-    maze[row][column] = 'x';
-    const newColumn = column - 1;
-    const newRow = row;
-    return 'L' + mazeSolver(maze, newRow, newColumn)
+  if (column > 0 && maze[row][column - 1] != "*" && maze[row][column - 1] != "x") {
+    maze[row][column] = "x";
+    return "L" + mazeSolver(maze, row, column - 1, count);
+  }
+  if (row > 0 && maze[row - 1][column] != "*" && maze[row - 1][column] != "x") {
+    maze[row][column] = "x";
+    return "U" + mazeSolver(maze, row - 1, column, count);
   }
 }
 
@@ -202,17 +188,16 @@ function anagram(word) {
 }
 // console.log(anagram('east'));
 
-
 // ** Organization Chart **
 
-function organizational(obj, size = '') {
+function organizational(obj, size = "") {
   if (!obj) {
-    return
+    return;
   }
   for (key in obj) {
-    const value = obj[key]
-    console.log(size + key)
-    organizational(value, size + '  ')
+    const value = obj[key];
+    console.log(size + key);
+    organizational(value, size + "  ");
   }
 }
 
@@ -220,40 +205,50 @@ data = {
   Zuckerberg: {
     Schroepfer: {
       Bosworth: {
-        Steve: null, Kyle: null, Andra: null
+        Steve: null,
+        Kyle: null,
+        Andra: null,
       },
-      Zhao: { Richie: null, Sofia: null, Jen: null }
+      Zhao: { Richie: null, Sofia: null, Jen: null },
     },
     Schrage: {
       VanDyck: {
-        Sabrina: null, Michelle: null, Josh: null
+        Sabrina: null,
+        Michelle: null,
+        Josh: null,
       },
-      Swain: { Blanch: null, Tom: null, Joe: null }
+      Swain: { Blanch: null, Tom: null, Joe: null },
     },
     Sandberg: {
       Goler: {
-        Eddie: null, Julie: null, Annie: null
+        Eddie: null,
+        Julie: null,
+        Annie: null,
       },
       Hernandez: {
-        Rowi: null, Inga: null, Morgan: null
+        Rowi: null,
+        Inga: null,
+        Morgan: null,
       },
       Moissinac: {
-        Amy: null, Chuck: null, Vinnie: null
+        Amy: null,
+        Chuck: null,
+        Vinnie: null,
       },
       Kelley: {
-        Eric: null, Ana: null, Wes: null
-      }
-    }
-  }
-}
+        Eric: null,
+        Ana: null,
+        Wes: null,
+      },
+    },
+  },
+};
 // organizational(data)
-
 
 // ** Binary Representation **
 
 function binaryRepresentation(number) {
-  return (number).toString(2)
+  return number.toString(2);
 }
 
 // console.log(binaryRepresentation(25));
-
