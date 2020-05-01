@@ -140,53 +140,37 @@ function mazeSolver(maze, row, column, count = 0) {
   }
 }
 
-console.log(mazeSolver(maze, 0, 0));
+// console.log(mazeSolver(maze, 0, 0));
 
 // All solutions (NOT WORKING)
-/* Tried rearranging directions to get a different answer at least; moving either
- * "U" or "L" before either "D" or "R" breaks the algorithm (max call stack exceeds).
- * Fixed the above issue by checking for the marker x, but now need to find out how to coerce it into
- * looking for different paths when they are available.
- */
-function allMazeSolver(maze, row, column, count = 0) {
-  count++;
-  if (count === 20) {
-    return "lost";
-  }
-  if (maze[row][column] === "e") {
-    return "";
-  }
+
+function allMazeSolver(maze, row, column, path = "") {
+  // check for edges of maze
   if (
-    column < maze[0].length - 1 &&
-    maze[row][column + 1] != "*" &&
-    maze[row][column + 1] != "x"
+    row < 0 ||
+    column < 0 ||
+    maze.length <= row ||
+    maze[row].length <= column
   ) {
-    maze[row][column] = "x";
-    return "R" + mazeSolver(maze, row, column + 1, count);
+    return;
   }
-  if (
-    row < maze.length - 1 &&
-    maze[row + 1][column] != "*" &&
-    maze[row + 1][column] != "x"
-  ) {
-    maze[row][column] = "x";
-    return "D" + mazeSolver(maze, row + 1, column, count);
+  // check for walls or previously visited positions
+  if (maze[row][column] == "*") {
+    return;
   }
-  if (
-    column > 0 &&
-    maze[row][column - 1] != "*" &&
-    maze[row][column - 1] != "x"
-  ) {
-    maze[row][column] = "x";
-    return "L" + mazeSolver(maze, row, column - 1, count);
+  
+  if (maze[row][column] == "e") {
+    return console.log("exit found", path);
   }
-  if (row > 0 && maze[row - 1][column] != "*" && maze[row - 1][column] != "x") {
-    maze[row][column] = "x";
-    return "U" + mazeSolver(maze, row - 1, column, count);
-  }
+  maze[row][column] = "*";
+  allMazeSolver(maze, row + 1, column, path + "d");
+  allMazeSolver(maze, row, column + 1, path + "r");
+  allMazeSolver(maze, row - 1, column, path + "u");
+  allMazeSolver(maze, row, column - 1, path + "l");
+  maze[row][column] = " ";
 }
 
-// console.log(allMazeSolver(maze, 0, 0))
+console.log(allMazeSolver(maze, 0, 0));
 
 // ** Anagrams **
 
